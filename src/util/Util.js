@@ -96,6 +96,10 @@ export function percentIncrease(a, b) {
     return Math.trunc(percent*100)/100;
 }
 
+export const getDateForExportFileName = () => {
+    return moment(new Date()).format("YYYYMMDDHHmmss");
+}
+
 export const formatChartDateLabel = (d, interval) => {
     if(isEmpty(d))
         return;

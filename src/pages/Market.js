@@ -5,10 +5,9 @@ import AutomaticScrollToTop from "../components/AutomaticScrollToTop";
 import {MarketTable} from "../components/tables/MarketTable";
 import {gql, useQuery} from "@apollo/client";
 import {formatNumber, formatNumberRemoveZeros, percentIncrease} from "../util/Util";
-import {BarChartCard} from "../components/BarChartCard";
 import {NavigationLink} from "../components/NavigationLink";
 import {AssetIcon} from "../components/AssetIcon";
-import {LineChartCard} from "../components/LineChartCard";
+import {ShareableChart} from "../components/charts/ShareableChart";
 
 export const Market = () => {
     const { slug } = useParams();
@@ -80,31 +79,35 @@ export const Market = () => {
 
                 <div className="row">
                     <div className="col-lg-6 col-md-12">
-                        <LineChartCard title={slug.replaceAll("-","/") + " 24H Volume"}
-                                       data={data && data.marketDaily}
-                                       dataKey="v"
-                                       latestRecord={marketStats && marketStats.market && {d: new Date().getTime(), value: marketStats.market.v, percentage: percentIncrease(marketStats.market.v, marketStats.market.pv)}}
-                                       filterToday={false}
-                                       allowGrouping={true}
-                                       loading={marketDailyLoading && marketLoading}
+                        <ShareableChart type="line"
+                                        fileNamePrefix={"polkadex-"+slug+"-24h-volume"}
+                                        title={slug.replaceAll("-","/") + " 24H Volume"}
+                                        data={data && data.marketDaily}
+                                        dataKey="v"
+                                        latestRecord={marketStats && marketStats.market && {d: new Date().getTime(), value: marketStats.market.v, percentage: percentIncrease(marketStats.market.v, marketStats.market.pv)}}
+                                        filterToday={false}
+                                        allowGrouping={true}
+                                        loading={marketDailyLoading && marketLoading}
                         />
                     </div>
 
                     <div className="col-lg-6 col-md-12">
-                        <BarChartCard title={slug.replaceAll("-","/") + " 24H Trades"}
-                                      data={data && data.marketDaily}
-                                      dataKey="t"
-                                      isCurrency={false}
-                                      latestRecord={marketStats && marketStats.market && {d: new Date().getTime(), value: marketStats.market.t, percentage: percentIncrease(marketStats.market.t, marketStats.market.pt)}}
-                                      filterToday={false}
-                                      allowGrouping={true}
-                                      loading={marketDailyLoading && marketLoading}
-                                      yTickFormatter = {(n) => {
-                                          return formatNumber(n, 0);
-                                      }}
-                                      labelFormatter = {(n) => {
-                                          return formatNumberRemoveZeros(n, 2);
-                                      }}/>
+                        <ShareableChart type="bar"
+                                        fileNamePrefix={"polkadex-"+slug+"-24h-trades"}
+                                        title={slug.replaceAll("-","/") + " 24H Trades"}
+                                        data={data && data.marketDaily}
+                                        dataKey="t"
+                                        isCurrency={false}
+                                        latestRecord={marketStats && marketStats.market && {d: new Date().getTime(), value: marketStats.market.t, percentage: percentIncrease(marketStats.market.t, marketStats.market.pt)}}
+                                        filterToday={false}
+                                        allowGrouping={true}
+                                        loading={marketDailyLoading && marketLoading}
+                                        yTickFormatter = {(n) => {
+                                            return formatNumber(n, 0);
+                                        }}
+                                        labelFormatter = {(n) => {
+                                            return formatNumberRemoveZeros(n, 2);
+                                        }}/>
                     </div>
                 </div>
 

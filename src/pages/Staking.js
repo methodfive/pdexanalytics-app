@@ -3,9 +3,8 @@ import {Helmet} from "react-helmet-async";
 import {useLocation} from "react-router-dom";
 import AutomaticScrollToTop from "../components/AutomaticScrollToTop";
 import {gql, useQuery} from "@apollo/client";
-import {LineChartCard} from "../components/LineChartCard";
 import {formatNumber, formatNumberRemoveZeros, percentIncrease} from "../util/Util";
-import {BarChartCard} from "../components/BarChartCard";
+import {ShareableChart} from "../components/charts/ShareableChart";
 
 export const Staking = () => {
     const location = useLocation();
@@ -66,7 +65,9 @@ export const Staking = () => {
 
                 <div className="row">
                     <div className="col-lg-6 col-md-12">
-                        <BarChartCard title="PDEX HOLDERS"
+                        <ShareableChart type="bar"
+                                        fileNamePrefix="polkadex-holders"
+                                        title="PDEX HOLDERS"
                                       data={data && data.exchangeDaily}
                                       dataKey="h"
                                       isCurrency={false}
@@ -84,7 +85,9 @@ export const Staking = () => {
                     </div>
 
                     <div className="col-lg-6 col-md-12">
-                        <BarChartCard title="PDEX STAKERS"
+                        <ShareableChart type="bar"
+                                      fileNamePrefix="polkadex-stakers"
+                                      title="PDEX STAKERS"
                                       data={data && data.exchangeDaily}
                                       dataKey="str"
                                       isCurrency={false}
@@ -103,7 +106,9 @@ export const Staking = () => {
                     </div>
 
                     <div className="col-lg-6 col-md-12">
-                        <BarChartCard title="Total Staked"
+                        <ShareableChart type="bar"
+                                      fileNamePrefix="polkadex-total-staked"
+                                      title="Total Staked"
                                       data={data && data.exchangeDaily}
                                       dataKey="s"
                                       suffix="PDEX"
@@ -123,7 +128,9 @@ export const Staking = () => {
 
                     <div className="col-lg-6 col-md-12">
 
-                        <LineChartCard title="Staking TVL"
+                        <ShareableChart type="line"
+                                       fileNamePrefix="polkadex-staking-tvl"
+                                       title="Staking TVL"
                                        data={data && data.exchangeDaily}
                                        dataKey="sv"
                                        latestRecord={quickStats && quickStats.quickStats && {d: new Date().getTime(), value: quickStats.quickStats.s, percentage: percentIncrease(quickStats.quickStats.s, quickStats.quickStats.ps)}}

@@ -4,13 +4,16 @@ import {
     formatChartDate,
     formatChartNumber,
     aggregateDataByGroup, formatNumber, formatChartDateLabel
-} from "../util/Util";
+} from "../../util/Util";
 import {Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import moment from "moment";
-import {Percentage} from "./Percentage";
+import {Percentage} from "../Percentage";
 
-export const LineChartCard = ({title, data, dataKey, latestRecord, filterToday, allowGrouping, loading = null, yTickFormatter = null, labelFormatter = null}) => {
-    const [interval, setInterval] = useState("D");
+export const LineChartCard = ({title, data, dataKey, latestRecord, filterToday, allowGrouping,
+                                  loading = null, yTickFormatter = null,
+                                  labelFormatter = null, isShared = false,
+                                  onShareClick = null, defaultInterval = "D"}) => {
+    const [interval, setInterval] = useState(defaultInterval);
     // eslint-disable-next-line no-unused-vars
     const [focusBar, setFocusBar] = useState(null);
     const [focusData, setFocusData] = useState(null);
@@ -51,23 +54,28 @@ export const LineChartCard = ({title, data, dataKey, latestRecord, filterToday, 
     return (
         <>
             <div className="card card-chart">
-                <div className="card-header border-0 align-items-center d-flex">
+                {<div className="card-header border-0 align-items-center d-flex">
                     <p className="text-uppercase fw-medium text-muted text-truncate mb-0 flex-grow-1">{title}</p>
-                    {allowGrouping && <div>
+                    {!isShared && <>
                         {/* eslint-disable-next-line no-implied-eval */}
-                        <button type="button" className={"btn btn-soft-secondary material-shadow-none btn-sm mr " + (interval === "D" ? "btn-soft-secondary-active":"")} onClick={() => { setInterval("D"); }}>
-                            D
+                        <button type="button" className={"btn btn-soft-secondary btn-share material-shadow-none btn-sm " + (allowGrouping ? "" : "no-group")} onClick={() => { onShareClick(interval); }}>
+                            Export
                         </button>
-                        {/* eslint-disable-next-line no-implied-eval */}
-                        <button type="button" className={"btn btn-soft-secondary material-shadow-none btn-sm mr " + (interval === "W" ? "btn-soft-secondary-active":"")} onClick={() => { setInterval("W"); }}>
-                            W
-                        </button>
-                        {/* eslint-disable-next-line no-implied-eval */}
-                        <button type="button" className={"btn btn-soft-secondary material-shadow-none btn-sm " + (interval === "M" ? "btn-soft-secondary-active":"")} onClick={() => { setInterval("M"); }}>
-                            M
-                        </button>
-                    </div>}
-                </div>
+                        {allowGrouping && <div>
+                            {/* eslint-disable-next-line no-implied-eval */}
+                            <button type="button" className={"btn btn-soft-secondary material-shadow-none btn-sm mr " + (interval === "D" ? "btn-soft-secondary-active":"")} onClick={() => { setInterval("D"); }}>
+                                D
+                            </button>
+                            {/* eslint-disable-next-line no-implied-eval */}
+                            <button type="button" className={"btn btn-soft-secondary material-shadow-none btn-sm mr " + (interval === "W" ? "btn-soft-secondary-active":"")} onClick={() => { setInterval("W"); }}>
+                                W
+                            </button>
+                            {/* eslint-disable-next-line no-implied-eval */}
+                            <button type="button" className={"btn btn-soft-secondary material-shadow-none btn-sm " + (interval === "M" ? "btn-soft-secondary-active":"")} onClick={() => { setInterval("M"); }}>
+                                M
+                            </button>
+                        </div>}</>}
+                </div>}
 
                 <div className="card-header border-0 align-items-center d-flex pt-0">
                     <div className="d-flex justify-content-between mt-0 mb-0">
@@ -117,7 +125,7 @@ export const LineChartCard = ({title, data, dataKey, latestRecord, filterToday, 
                                 </defs>
                                 <Area dataKey={dataKey} type="linear" fillOpacity={1} fill="url(#color)"
                                       stroke="#468abc" strokeWidth={4} dot={false} connectNulls={true}
-                                      legendType="none"
+                                      legendType="none" isAnimationActive={!isShared}
                                       activeDot={{ stroke: '#71b1df', fill: '#71b1df', r: 5 }}
                                 >
                                 </Area>

@@ -232,6 +232,33 @@ table tbody tr:hover .table-link{
 }
 .quote-asset { margin-left:0px;}
 
+.btn-share {
+    background-color: transparent !important;
+}
+.btn-share:active {
+    border-color: transparent !important;
+    color:#fff;
+}
+.no-group { padding-left:0; padding-right:0;}
+
+.shared-card { width:600px; margin: 16px; background-color:#1a1d21; position: absolute; left: -1000%; }
+.shared-card .card { margin-bottom:0; }
+.shared-card-header {
+    padding-left:16px;
+    padding-right:16px;
+    background-color: #272b30;
+    height: 51px;
+    border-bottom: 1px solid #191d21;
+}
+.shared-card-footer {
+    font-size:12px !important;
+    padding:8px 16px;
+}
+
+.shared-card-header .url {
+    padding-top:12px;
+}
+
 /* sm */
 @media (max-width: 768px) {
     .table-light th { font-size: 13px; }

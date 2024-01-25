@@ -4,11 +4,10 @@ import {useLocation, useParams} from "react-router-dom";
 import AutomaticScrollToTop from "../components/AutomaticScrollToTop";
 import {AssetTable} from "../components/tables/AssetTable";
 import {gql, useQuery} from "@apollo/client";
-import {LineChartCard} from "../components/LineChartCard";
 import {formatNumber, formatNumberRemoveZeros, percentIncrease, removeLeadingZeros} from "../util/Util";
 import {NavigationLink} from "../components/NavigationLink";
-import {BarChartCard} from "../components/BarChartCard";
 import {AssetIcon} from "../components/AssetIcon";
+import {ShareableChart} from "../components/charts/ShareableChart";
 
 export const Asset = () => {
     const { slug } = useParams();
@@ -95,7 +94,9 @@ export const Asset = () => {
 
                 <div className="row">
                     <div className="col-lg-6 col-md-12">
-                        <LineChartCard title={slug +" OrderBook Price"}
+                        <ShareableChart type="line"
+                                        fileNamePrefix={"polkadex-"+slug+"-ob-price"}
+                                        title={slug +" OrderBook Price"}
                                        data={data && data.assetDaily}
                                        dataKey="p"
                                        latestRecord={assetData && assetData.quickStats && {d: new Date().getTime(), value: assetData.quickStats.p, percentage: percentIncrease(assetData.quickStats.p, assetData.quickStats.pp)}}
@@ -112,7 +113,9 @@ export const Asset = () => {
                     </div>
 
                     <div className="col-lg-6 col-md-12">
-                        <LineChartCard title={slug + " OrderBook TVL"}
+                        <ShareableChart type="line"
+                                        fileNamePrefix={"polkadex-"+slug+"-ob-tvl"}
+                                        title={slug + " OrderBook TVL"}
                                        data={data && data.assetDaily}
                                        dataKey="t"
                                        latestRecord={assetData && assetData.quickStats && {d: new Date().getTime(), value: assetData.quickStats.t, percentage: percentIncrease(assetData.quickStats.t, assetData.quickStats.pt)}}
@@ -123,7 +126,9 @@ export const Asset = () => {
                     </div>
 
                     <div className="col-lg-6 col-md-12">
-                        <BarChartCard title={slug + " 24H Trades"}
+                        <ShareableChart type="bar"
+                                        fileNamePrefix={"polkadex-"+slug+"-24h-trades"}
+                                        title={slug + " 24H Trades"}
                                   data={data && data.assetDaily}
                                   dataKey="tr"
                                   isCurrency={false}
@@ -141,7 +146,9 @@ export const Asset = () => {
                     </div>
 
                     <div className="col-lg-6 col-md-12">
-                        <LineChartCard title={slug + " 24H Volume"}
+                        <ShareableChart type="line"
+                                        fileNamePrefix={"polkadex-"+slug+"-24h-volume"}
+                                        title={slug + " 24H Volume"}
                                        data={data && data.assetDaily}
                                        dataKey="v"
                                        latestRecord={assetData && assetData.quickStats && {d: new Date().getTime(), value: assetData.quickStats.v, percentage: percentIncrease(assetData.quickStats.v, assetData.quickStats.pv)}}
@@ -152,7 +159,9 @@ export const Asset = () => {
                     </div>
 
                     <div className="col-lg-6 col-md-12">
-                        <BarChartCard title={slug + " OrderBook Balance"}
+                        <ShareableChart type="bar"
+                                        fileNamePrefix={"polkadex-"+slug+"-ob-balance"}
+                                        title={slug + " OrderBook Balance"}
                                       data={data && data.assetDaily}
                                       dataKey="b"
                                       suffix={slug}

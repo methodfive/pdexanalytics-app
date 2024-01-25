@@ -4,15 +4,16 @@ import {
     formatChartDate,
     formatChartNumber,
     aggregateDataByGroup, formatNumber, formatChartDateLabel
-} from "../util/Util";
+} from "../../util/Util";
 import {Bar, BarChart, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import moment from "moment";
-import {Percentage} from "./Percentage";
+import {Percentage} from "../Percentage";
 
 export const BarChartCard = ({title, data, dataKey, latestRecord, filterToday,
                                  allowGrouping, loading = null, isCurrency,suffix = null,
-                                 yTickFormatter = null, labelFormatter = null, yAxisDomain = null}) => {
-    const [interval, setInterval] = useState("D");
+                                 yTickFormatter = null, labelFormatter = null, yAxisDomain = null,
+                                  isShared = false, onShareClick = null, defaultInterval = "D"}) => {
+    const [interval, setInterval] = useState(defaultInterval);
     const [focusBar, setFocusBar] = useState(null);
     const [focusData, setFocusData] = useState(null);
 
@@ -58,20 +59,25 @@ export const BarChartCard = ({title, data, dataKey, latestRecord, filterToday,
             <div className="card card-chart">
                 <div className="card-header border-0 align-items-center d-flex">
                     <p className="text-uppercase fw-medium text-muted text-truncate mb-0 flex-grow-1">{title}</p>
-                    {allowGrouping && <div>
-                        {/* eslint-disable-next-line no-implied-eval */}
-                        <button type="button" className={"btn btn-soft-secondary material-shadow-none btn-sm mr " + (interval === "D" ? "btn-soft-secondary-active":"")} onClick={() => { setInterval("D"); }}>
-                            D
-                        </button>
-                        {/* eslint-disable-next-line no-implied-eval */}
-                        <button type="button" className={"btn btn-soft-secondary material-shadow-none btn-sm mr " + (interval === "W" ? "btn-soft-secondary-active":"")} onClick={() => { setInterval("W"); }}>
-                            W
-                        </button>
-                        {/* eslint-disable-next-line no-implied-eval */}
-                        <button type="button" className={"btn btn-soft-secondary material-shadow-none btn-sm " + (interval === "M" ? "btn-soft-secondary-active":"")} onClick={() => { setInterval("M"); }}>
-                            M
-                        </button>
-                    </div>}
+                       {/* eslint-disable-next-line no-implied-eval */}
+                       {!isShared && <button type="button" className={"btn btn-soft-secondary btn-share material-shadow-none btn-sm " + (allowGrouping ? "" : "no-group")} onClick={() => { onShareClick(interval); }}>
+                            Export
+                        </button>}
+                        {allowGrouping && <div>
+                            {/* eslint-disable-next-line no-implied-eval */}
+                            <button type="button" className={"btn btn-soft-secondary material-shadow-none btn-sm mr " + (interval === "D" ? "btn-soft-secondary-active":"")} onClick={() => { setInterval("D"); }}>
+                                D
+                            </button>
+                            {/* eslint-disable-next-line no-implied-eval */}
+                            <button type="button" className={"btn btn-soft-secondary material-shadow-none btn-sm mr " + (interval === "W" ? "btn-soft-secondary-active":"")} onClick={() => { setInterval("W"); }}>
+                                W
+                            </button>
+                            {/* eslint-disable-next-line no-implied-eval */}
+                            <button type="button" className={"btn btn-soft-secondary material-shadow-none btn-sm " + (interval === "M" ? "btn-soft-secondary-active":"")} onClick={() => { setInterval("M"); }}>
+                                M
+                            </button>
+                        </div>}
+                    }
                 </div>
 
                 <div className="card-header border-0 align-items-center d-flex pt-0">
@@ -113,7 +119,7 @@ export const BarChartCard = ({title, data, dataKey, latestRecord, filterToday,
                                     setFocusData(null);
                                 }
                             }>
-                                <Bar dataKey={dataKey} fill="#468abc" radius={[5, 5, 0, 0]}>
+                                <Bar isAnimationActive={!isShared} dataKey={dataKey} fill="#468abc" radius={[5, 5, 0, 0]}>
                                     {data && data.map((entry, index) => (
                                         <Cell key={"cellKey"+index}
                                             fill={focusBar === index ? "#71b1df" : "#468abc"}
