@@ -8,6 +8,7 @@ import {
 import {Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import moment from "moment";
 import {Percentage} from "../Percentage";
+import {isMobile} from 'react-device-detect';
 
 export const LineChartCard = ({title, data, dataKey, latestRecord, filterToday, allowGrouping,
                                   loading = null, yTickFormatter = null,
@@ -56,11 +57,10 @@ export const LineChartCard = ({title, data, dataKey, latestRecord, filterToday, 
             <div className="card card-chart">
                 {<div className="card-header border-0 align-items-center d-flex">
                     <p className="text-uppercase fw-medium text-muted text-truncate mb-0 flex-grow-1">{title}</p>
-                    {!isShared && <>
                         {/* eslint-disable-next-line no-implied-eval */}
-                        <button type="button" className={"btn btn-soft-secondary btn-share material-shadow-none btn-sm " + (allowGrouping ? "" : "no-group")} onClick={() => { onShareClick(interval); }}>
+                        {!isShared && !isMobile &&  <button type="button" className={"btn btn-soft-secondary btn-share material-shadow-none btn-sm d-none d-sm-block " + (allowGrouping ? "" : "no-group")} onClick={() => { onShareClick(interval); }}>
                             Export
-                        </button>
+                        </button>}
                         {allowGrouping && <div>
                             {/* eslint-disable-next-line no-implied-eval */}
                             <button type="button" className={"btn btn-soft-secondary material-shadow-none btn-sm mr " + (interval === "D" ? "btn-soft-secondary-active":"")} onClick={() => { setInterval("D"); }}>
@@ -74,7 +74,7 @@ export const LineChartCard = ({title, data, dataKey, latestRecord, filterToday, 
                             <button type="button" className={"btn btn-soft-secondary material-shadow-none btn-sm " + (interval === "M" ? "btn-soft-secondary-active":"")} onClick={() => { setInterval("M"); }}>
                                 M
                             </button>
-                        </div>}</>}
+                        </div>}
                 </div>}
 
                 <div className="card-header border-0 align-items-center d-flex pt-0">
