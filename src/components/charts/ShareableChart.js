@@ -33,24 +33,57 @@ export const ShareableChart = ({type, fileNamePrefix, title, data,
         }
     }
 
+    function dataURItoBlob(dataURI) {
+        // convert base64 to raw binary data held in a string
+        // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+        let byteString = atob(dataURI.split(',')[1]);
+
+        // separate out the mime component
+        let mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+
+        // write the bytes of the string to an ArrayBuffer
+        let ab = new ArrayBuffer(byteString.length);
+
+        // create a view into the buffer
+        let ia = new Uint8Array(ab);
+
+        // set the bytes of the buffer to the correct values
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+
+        // write the ArrayBuffer to a blob, and you're done
+        let blob = new Blob([ab], {type: mimeString});
+        return blob;
+
+    }
+
     const sleep = ms => new Promise(r => setTimeout(r, ms));
 
     const onShareClick = async function (e, interval) {
-        if(shareClicked)
+        if(shareClicked || typeof navigator === "undefined" || typeof window === "undefined")
+        {
             return;
+        }
 
         setShareClicked(true);
         setInterval(interval);
 
-        await sleep(100);
-
-        if(typeof document !== "undefined") {
+        const makeImagePromise = async () => {
+            await sleep(100);
             const canvas = await html2canvas(sharedCardRef.current);
-            canvas.toBlob(copyToClipboard, "image/png", 1);
-
-            setShareClicked(false);
-            setInterval(null);
+            return dataURItoBlob(canvas.toDataURL("image/png", 1));
         }
+
+        await navigator.clipboard.write([
+            new window.ClipboardItem({
+                "image/png": makeImagePromise()
+            })
+        ]).then(function () { alert("Copied to clipboard! Paste on X to share!"); })
+            .catch(function (error) { alert("Unable to copy to clipboard:" + error) });
+
+        setShareClicked(false);
+        setInterval(null);
     };
 
     return <>
