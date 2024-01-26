@@ -33,23 +33,24 @@ export const ShareableChart = ({type, fileNamePrefix, title, data,
         }
     }
 
-    const onShareClick = async function (interval) {
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+    const onShareClick = async function (e, interval) {
         if(shareClicked)
             return;
 
         setShareClicked(true);
         setInterval(interval);
 
-        setTimeout(async function () {
-            if(typeof document !== "undefined") {
-                const canvas = await html2canvas(sharedCardRef.current);
-                canvas.toBlob(copyToClipboard, "image/png", 1);
+        await sleep(100);
 
-                setShareClicked(false);
-                setInterval(null);
-            }
-        }, 10)
+        if(typeof document !== "undefined") {
+            const canvas = await html2canvas(sharedCardRef.current);
+            canvas.toBlob(copyToClipboard, "image/png", 1);
 
+            setShareClicked(false);
+            setInterval(null);
+        }
     };
 
     return <>
