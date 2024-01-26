@@ -100,22 +100,6 @@ export const getDateForExportFileName = () => {
     return moment(new Date()).format("YYYYMMDDHHmmss");
 }
 
-export async function copyToClipboard(pngBlob) {
-    if(typeof navigator === "undefined")
-        return;
-
-    try {
-        await navigator.clipboard.write([
-            new ClipboardItem({
-                [pngBlob.type]: pngBlob
-            })
-        ]);
-        alert("Copied to clipboard. Paste on X to share.")
-    } catch (error) {
-        alert("Unable to copy to clipboard.")
-    }
-}
-
 export const formatChartDateLabel = (d, interval) => {
     if(isEmpty(d))
         return;
