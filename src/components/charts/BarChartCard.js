@@ -62,7 +62,7 @@ export const BarChartCard = ({title, data, dataKey, latestRecord, filterToday,
                     <p className="text-uppercase fw-medium text-muted text-truncate mb-0 flex-grow-1">{title}</p>
                        {/* eslint-disable-next-line no-implied-eval */}
                        {!isShared && !isMobile && <button type="button" className={"btn btn-soft-secondary btn-share material-shadow-none btn-sm d-none d-sm-block " + (allowGrouping ? "" : "no-group")} onClick={() => { onShareClick(interval); }}>
-                            Export
+                            Share
                         </button>}
                         {allowGrouping && <div>
                             {/* eslint-disable-next-line no-implied-eval */}

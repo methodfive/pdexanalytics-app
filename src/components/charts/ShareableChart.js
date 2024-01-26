@@ -1,6 +1,6 @@
 import React, {useRef, useState} from "react";
 import {
-    getDateForExportFileName
+    copyToClipboard,
 } from "../../util/Util";
 import {LineChartCard} from "./LineChartCard";
 import html2canvas from "html2canvas";
@@ -19,6 +19,9 @@ export const ShareableChart = ({type, fileNamePrefix, title, data,
     const sharedCardRef = useRef();
 
     const onShareClick = async function (interval) {
+        if(shareClicked)
+            return;
+
         setShareClicked(true);
         setInterval(interval);
 
@@ -26,8 +29,23 @@ export const ShareableChart = ({type, fileNamePrefix, title, data,
             if(typeof document !== "undefined") {
                 const canvas = await html2canvas(sharedCardRef.current);
 
-                const data = canvas.toDataURL('image/png');
-                const link = document.createElement('a');
+                //const data = canvas.toDataURL('image/png');
+                canvas.toBlob(copyToClipboard, "image/png", 1);
+/*
+                let selectedDataUrl = document.createElement('textarea');
+                document.body.appendChild(selectedDataUrl);
+                selectedDataUrl.value = data;
+                selectedDataUrl.select();
+                try {
+                    let successful = document.execCommand('copy');
+                    let msg = successful ? 'successful' : 'unsuccessful';
+                    alert('Copying to Clipboard was ' + msg);
+                } catch (err) {
+                    alert('Oops, unable to copy');
+                }
+                document.body.removeChild(selectedDataUrl);
+*/
+                /*const link = document.createElement('a');
 
                 if (typeof link.download === 'string') {
                     link.href = data;
@@ -38,7 +56,8 @@ export const ShareableChart = ({type, fileNamePrefix, title, data,
                     document.body.removeChild(link);
                 } else {
                     window.open(data);
-                }
+                }*/
+
 
                 setShareClicked(false);
                 setInterval(null);
