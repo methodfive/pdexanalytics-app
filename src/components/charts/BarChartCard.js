@@ -8,7 +8,6 @@ import {
 import {Bar, BarChart, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import moment from "moment";
 import {Percentage} from "../Percentage";
-import {isMobile} from 'react-device-detect';
 
 export const BarChartCard = ({title, data, dataKey, latestRecord, filterToday,
                                  allowGrouping, loading = null, isCurrency,suffix = null,
