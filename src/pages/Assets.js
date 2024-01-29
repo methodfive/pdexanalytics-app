@@ -6,6 +6,8 @@ import {AssetTable} from "../components/tables/AssetTable";
 import {gql, useQuery} from "@apollo/client";
 import {TVL} from "../components/quickStats/TVL";
 import {StakingTVL} from "../components/quickStats/StakingTVL";
+import {TreasuryBalance} from "../components/quickStats/TreasuryBalance";
+import {TreasuryTVL} from "../components/quickStats/TreasuryTVL";
 
 export const Assets = () => {
     const location = useLocation();
@@ -14,7 +16,7 @@ export const Assets = () => {
     const { data: quickStats, loading: quickLoading } = useQuery(gql`
         {
           quickStats {
-            o po s ps
+            o po s ps tt ptt tb ptb
           }
         }`);
 
@@ -40,8 +42,10 @@ export const Assets = () => {
                 </div>
 
                 <div className="row">
-                    <TVL loading={quickLoading} stats={quickStats} containerClass="col-xl-6 col-md-6" />
-                    <StakingTVL loading={quickLoading} stats={quickStats} containerClass="col-xl-6 col-md-6" />
+                    <TVL loading={quickLoading} stats={quickStats} containerClass="col-xl-3 col-md-6" />
+                    <StakingTVL loading={quickLoading} stats={quickStats} containerClass="col-xl-3 col-md-6" />
+                    <TreasuryBalance loading={quickLoading} stats={quickStats} containerClass="col-xl-3  col-md-6" />
+                    <TreasuryTVL loading={quickLoading} stats={quickStats} containerClass="col-xl-3  col-md-6" />
                 </div>
 
                 <AssetTable/>

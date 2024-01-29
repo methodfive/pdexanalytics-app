@@ -86,11 +86,14 @@ export function percentIncrease(a, b) {
     if(isEmpty(a) || isEmpty(b))
         return null;
 
+    a = Number(a);
+    b = Number(b);
+
     if(a === 0 && b === 0)
         return 0;
 
     if(b === 0)
-        return 100;
+        return null;
 
     let percent = (a - b) / b * 100.0;
     return Math.trunc(percent*100)/100;
