@@ -7,7 +7,7 @@ export const TotalStakers = ({loading, stats = null, containerClass = null}) => 
         <QuickStatCard title="PDEX STAKERS"
                        value={stats && stats.quickStats && stats.quickStats.str}
                        previous={stats && stats.quickStats && stats.quickStats.pstr}
-                       icon="fa-solid fa-users"
+                       icon="fa-solid fa-users-gear"
                        loading={loading}
                        containerClass={containerClass}
                        labelFormatter = {(n) => {

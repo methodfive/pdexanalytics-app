@@ -7,7 +7,7 @@ export const TVL = ({loading, stats = null, containerClass = null}) => {
                        prefix="$"
                        value={stats && stats.quickStats && stats.quickStats.o}
                        previous={stats && stats.quickStats && stats.quickStats.po}
-                       icon="fa-solid fa-circle-dollar-to-slot"
+                       icon="fa-solid fa-coins"
                        loading={loading}
                        containerClass={containerClass}
         />

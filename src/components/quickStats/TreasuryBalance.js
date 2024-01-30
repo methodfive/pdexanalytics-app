@@ -7,7 +7,7 @@ export const TreasuryBalance = ({loading, stats = null, containerClass = null}) 
                        suffix=" PDEX"
                        value={stats && stats.quickStats && stats.quickStats.tb}
                        previous={stats && stats.quickStats && stats.quickStats.ptb}
-                       icon="fa-solid fa-chart-column"
+                       icon="fa-solid fa-landmark"
                        loading={loading}
                        containerClass={containerClass}
         />
