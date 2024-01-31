@@ -63,7 +63,8 @@ export function formatNumber(number, decimalPlaces, decimalPlacesMax) {
     {
         let options = {
             minimumFractionDigits: decimalPlaces,
-            maximumFractionDigits: decimalPlacesMax || decimalPlaces
+            maximumFractionDigits: decimalPlacesMax || decimalPlaces,
+            roundingMode: 'floor'
         };
 
         const formatter = Intl.NumberFormat("en-US", options);
@@ -74,7 +75,8 @@ export function formatNumber(number, decimalPlaces, decimalPlacesMax) {
         notation: "compact",
         compactDisplay: "short",
         minimumFractionDigits: decimalPlaces,
-        maximumFractionDigits: decimalPlaces
+        maximumFractionDigits: decimalPlaces,
+        roundingMode: 'floor'
     };
 
     const formatter = Intl.NumberFormat("en-US", options);
