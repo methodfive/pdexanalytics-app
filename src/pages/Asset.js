@@ -95,20 +95,14 @@ export const Asset = () => {
                 <div className="row">
                     <div className="col-lg-6 col-md-12">
                         <ShareableChart type="line"
-                                        fileNamePrefix={"polkadex-"+slug+"-ob-price"}
-                                        title={slug +" OrderBook Price"}
-                                       data={data && data.assetDaily}
-                                       dataKey="p"
-                                       latestRecord={assetData && assetData.quickStats && {d: new Date().getTime(), value: assetData.quickStats.p, percentage: percentIncrease(assetData.quickStats.p, assetData.quickStats.pp)}}
-                                       filterToday={false}
-                                       allowGrouping={false}
-                                       loading={assetDailyLoading && assetLoading}
-                                       yTickFormatter = {(n) => {
-                                           return formatNumber(n, 2, 6);
-                                       }}
-                                       labelFormatter = {(n) => {
-                                           return formatNumber(n, 2, 6);
-                                       }}
+                                        fileNamePrefix={"polkadex-"+slug+"-24h-volume"}
+                                        title={slug + " 24H Volume"}
+                                        data={data && data.assetDaily}
+                                        dataKey="v"
+                                        latestRecord={assetData && assetData.quickStats && {d: new Date().getTime(), value: assetData.quickStats.v, percentage: percentIncrease(assetData.quickStats.v, assetData.quickStats.pv)}}
+                                        filterToday={false}
+                                        allowGrouping={true}
+                                        loading={assetDailyLoading && assetLoading}
                         />
                     </div>
 
@@ -125,7 +119,26 @@ export const Asset = () => {
                         />
                     </div>
 
-                    <div className="col-lg-6 col-md-12">
+                    <div className="col-xl-4 col-lg-6 col-md-12">
+                        <ShareableChart type="line"
+                                        fileNamePrefix={"polkadex-"+slug+"-ob-price"}
+                                        title={slug +" OrderBook Price"}
+                                        data={data && data.assetDaily}
+                                        dataKey="p"
+                                        latestRecord={assetData && assetData.quickStats && {d: new Date().getTime(), value: assetData.quickStats.p, percentage: percentIncrease(assetData.quickStats.p, assetData.quickStats.pp)}}
+                                        filterToday={false}
+                                        allowGrouping={false}
+                                        loading={assetDailyLoading && assetLoading}
+                                        yTickFormatter = {(n) => {
+                                            return formatNumber(n, 2, 6);
+                                        }}
+                                        labelFormatter = {(n) => {
+                                            return formatNumber(n, 2, 6);
+                                        }}
+                        />
+                    </div>
+
+                    <div className="col-xl-4 col-lg-6 col-md-12">
                         <ShareableChart type="bar"
                                         fileNamePrefix={"polkadex-"+slug+"-24h-trades"}
                                         title={slug + " 24H Trades"}
@@ -145,20 +158,7 @@ export const Asset = () => {
                         />
                     </div>
 
-                    <div className="col-lg-6 col-md-12">
-                        <ShareableChart type="line"
-                                        fileNamePrefix={"polkadex-"+slug+"-24h-volume"}
-                                        title={slug + " 24H Volume"}
-                                       data={data && data.assetDaily}
-                                       dataKey="v"
-                                       latestRecord={assetData && assetData.quickStats && {d: new Date().getTime(), value: assetData.quickStats.v, percentage: percentIncrease(assetData.quickStats.v, assetData.quickStats.pv)}}
-                                       filterToday={false}
-                                       allowGrouping={true}
-                                       loading={assetDailyLoading && assetLoading}
-                        />
-                    </div>
-
-                    <div className="col-lg-6 col-md-12">
+                    <div className="col-xl-4 col-lg-6 col-md-12">
                         <ShareableChart type="bar"
                                         fileNamePrefix={"polkadex-"+slug+"-ob-balance"}
                                         title={slug + " OrderBook Balance"}
