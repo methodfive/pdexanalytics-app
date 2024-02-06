@@ -15,16 +15,15 @@ export const PieChartCard = ({title, data, latestRecord,
                                  allowGrouping, loading = null, isCurrency,suffix = null,
                                  labelFormatter = null,
                                   isShared = false, onShareClick = null, defaultInterval = "D"}) => {
+    // eslint-disable-next-line no-unused-vars
     const [interval, setInterval] = useState(defaultInterval);
-    const [focusBar, setFocusBar] = useState(null);
     const [focusData, setFocusData] = useState(null);
     const [activeIndex, setActiveIndex] = useState(null);
 
     const COLORS = ['#468abc', '#468abc', '#468abc'];
 
     const renderActiveShape = (props) => {
-        const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle,
-            fill, payload, percent, value } = props;
+        const { cx, cy, innerRadius, outerRadius, startAngle, endAngle} = props;
 
         return (
             <g>
