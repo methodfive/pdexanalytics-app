@@ -76,7 +76,7 @@ export const Ecosystem = () => {
                                         suffix={" PDEX"}
                                         data={quickStats && quickStats.quickStats && [
                                             { name: 'Treasury', value: Number(quickStats.quickStats.tb) },
-                                            { name: 'Staking', value: Number(quickStats.quickStats.st) },
+                                            { name: 'Staked', value: Number(quickStats.quickStats.st) },
                                             { name: 'Other', value: Number(quickStats.quickStats.ti) - Number(quickStats.quickStats.tb) - Number(quickStats.quickStats.st) }
                                         ]}
                                         dataKey="ti"

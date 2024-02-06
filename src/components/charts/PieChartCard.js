@@ -1,6 +1,6 @@
 import React,{useState}  from "react";
 import {
-    formatNumber
+    formatNumber, getViewport
 } from "../../util/Util";
 import {
     PieChart,
@@ -95,8 +95,8 @@ export const PieChartCard = ({title, data, latestRecord,
                                     animationBegin={0}
                                     cx={"50%"}
                                     cy={115}
-                                    innerRadius={50}
-                                    outerRadius={80}
+                                    innerRadius={getViewport() === "xs" ? 25 : 50}
+                                    outerRadius={getViewport() === "xs" ? 35 : 80}
                                     fill="#8884d8"
                                     paddingAngle={5}
                                     dataKey="value"
@@ -128,10 +128,14 @@ export const PieChartCard = ({title, data, latestRecord,
                                         // eslint-disable-next-line
                                         const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
+                                        let newX = x > cx ? x + 15 : x - 10;
+                                        if(getViewport() === "xs")
+                                            newX = x > cx ? x + 15 : x;
+
                                         return (
                                             <g>
                                             <text
-                                                x={x > cx ? x + 15 : x - 10 }
+                                                x={newX }
                                                 y={y}
                                                 fill="#cfd4da"
                                                 textAnchor={x > cx ? "start" : "end"}
@@ -140,7 +144,7 @@ export const PieChartCard = ({title, data, latestRecord,
                                                 {data[index].name} ({`${(percent * 100).toFixed(0)}%`})
                                             </text>
                                                 <text
-                                                    x={x > cx ? x + 15 : x - 10 }
+                                                    x={newX}
                                                     y={y+20}
                                                     fill="#666666"
                                                     fontSize="12"
