@@ -6,21 +6,21 @@ import {gql, useQuery} from "@apollo/client";
 import {formatNumber, formatNumberRemoveZeros, percentIncrease} from "../util/Util";
 import {ShareableChart} from "../components/charts/ShareableChart";
 
-export const Staking = () => {
+export const Ecosystem = () => {
     const location = useLocation();
     const scrollNeeded = location.state?.scrollToTop;
 
     const { data: quickStats, loading: quickLoading } = useQuery(gql`
         {
           quickStats {
-            st pst s ps str pstr h ph
+            st pst s ps str pstr h ph ti pti tb ptb tt ptt
           }
         }`);
 
     const { data: exchangeDaily } = useQuery(gql`
     {
       exchangeDaily {
-        d s sv t tv u v h str
+        d s sv t tv u v h str tb tt
       }
     }`);
 
@@ -39,13 +39,18 @@ export const Staking = () => {
 
             if(data.exchangeDaily[i].sv != null)
                 data.exchangeDaily[i].sv = Number(data.exchangeDaily[i].sv);
+
+            if(data.exchangeDaily[i].ti != null)
+                data.exchangeDaily[i].ti = Number(data.exchangeDaily[i].ti);
         }
     }
+
+    console.log(quickStats);
 
     return (
         <>
             <Helmet>
-                <title>Staking | Polkadex Analytics</title>
+                <title>Ecosystem | Polkadex Analytics</title>
                 <meta name="description" content=""/>
                 <link rel="canonical" href="https://pdexanalytics.com/staking" />
             </Helmet>
@@ -57,13 +62,35 @@ export const Staking = () => {
                     <div className="col-12">
                         <div className="d-flex align-items-lg-center flex-lg-row flex-column">
                             <div className="flex-grow-1">
-                                <h4 className="fs-16 mb-1">Polkadex Staking</h4>
+                                <h4 className="fs-16 mb-1">Ecosystem</h4>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div className="row">
+                    <div className="col-lg-6 col-md-12">
+                        <ShareableChart type="pie"
+                                        fileNamePrefix="polkadex-holders"
+                                        title="PDEX ISSUANCE"
+                                        suffix={" PDEX"}
+                                        data={quickStats && quickStats.quickStats && [
+                                            { name: 'Treasury', value: Number(quickStats.quickStats.tb) },
+                                            { name: 'Staking', value: Number(quickStats.quickStats.st) },
+                                            { name: 'Other', value: Number(quickStats.quickStats.ti) - Number(quickStats.quickStats.tb) - Number(quickStats.quickStats.st) }
+                                        ]}
+                                        dataKey="ti"
+                                        isCurrency={false}
+                                        latestRecord={quickStats && quickStats.quickStats && {d: new Date().getTime(), value: quickStats.quickStats.ti, percentage: percentIncrease(quickStats.quickStats.ti, quickStats.quickStats.pti)}}
+                                        filterToday={false}
+                                        allowGrouping={false}
+                                        loading={quickLoading}
+                                        labelFormatter = {(n) => {
+                                            return formatNumber(n, 3);
+                                        }}
+                        />
+                    </div>
+
                     <div className="col-lg-6 col-md-12">
                         <ShareableChart type="bar"
                                         fileNamePrefix="polkadex-holders"
@@ -84,7 +111,7 @@ export const Staking = () => {
                         />
                     </div>
 
-                    <div className="col-lg-6 col-md-12">
+                    <div className="col-lg-4 col-md-12">
                         <ShareableChart type="bar"
                                       fileNamePrefix="polkadex-stakers"
                                       title="PDEX STAKERS"
@@ -105,7 +132,7 @@ export const Staking = () => {
                         />
                     </div>
 
-                    <div className="col-lg-6 col-md-12">
+                    <div className="col-lg-4 col-md-12">
                         <ShareableChart type="bar"
                                       fileNamePrefix="polkadex-total-staked"
                                       title="Total Staked"
@@ -126,11 +153,11 @@ export const Staking = () => {
                         />
                     </div>
 
-                    <div className="col-lg-6 col-md-12">
+                    <div className="col-lg-4 col-md-12">
 
                         <ShareableChart type="line"
                                        fileNamePrefix="polkadex-staking-tvl"
-                                       title="Staking TVL"
+                                       title="STAKING TVL"
                                        data={data && data.exchangeDaily}
                                        dataKey="sv"
                                        latestRecord={quickStats && quickStats.quickStats && {d: new Date().getTime(), value: quickStats.quickStats.s, percentage: percentIncrease(quickStats.quickStats.s, quickStats.quickStats.ps)}}
@@ -143,6 +170,47 @@ export const Staking = () => {
                                        labelFormatter = {(n) => {
                                            return formatNumber(n, 3);
                                        }}
+                        />
+                    </div>
+
+                    <div className="col-lg-6 col-md-12">
+                        <ShareableChart type="bar"
+                                        fileNamePrefix="polkadex-total-staked"
+                                        title="Treasury"
+                                        data={data && data.exchangeDaily}
+                                        dataKey="tb"
+                                        suffix="PDEX"
+                                        isCurrency={false}
+                                        latestRecord={quickStats && quickStats.quickStats && {d: new Date().getTime(), value: quickStats.quickStats.tb, percentage: percentIncrease(quickStats.quickStats.tb, quickStats.quickStats.ptb)}}
+                                        filterToday={false}
+                                        allowGrouping={false}
+                                        loading={quickLoading}
+                                        yTickFormatter = {(n) => {
+                                            return formatNumber(n, 3);
+                                        }}
+                                        labelFormatter = {(n) => {
+                                            return formatNumber(n, 3);
+                                        }}
+                        />
+                    </div>
+
+                    <div className="col-lg-6 col-md-12">
+
+                        <ShareableChart type="line"
+                                        fileNamePrefix="polkadex-staking-tvl"
+                                        title="TREASURY TVL"
+                                        data={data && data.exchangeDaily}
+                                        dataKey="tt"
+                                        latestRecord={quickStats && quickStats.quickStats && {d: new Date().getTime(), value: quickStats.quickStats.tt, percentage: percentIncrease(quickStats.quickStats.tt, quickStats.quickStats.ptt)}}
+                                        filterToday={false}
+                                        allowGrouping={false}
+                                        loading={quickLoading}
+                                        yTickFormatter = {(n) => {
+                                            return formatNumber(n, 3);
+                                        }}
+                                        labelFormatter = {(n) => {
+                                            return formatNumber(n, 3);
+                                        }}
                         />
                     </div>
                 </div>

@@ -3,7 +3,7 @@ import {Routes, Route} from "react-router-dom";
 import { Overview } from "../pages/Overview";
 import NotFound from "../pages/NotFound";
 import {Trades} from "../pages/Trades";
-import {Staking} from "../pages/Staking";
+import {Ecosystem} from "../pages/Ecosystem";
 import {Markets} from "../pages/Markets";
 import {Assets} from "../pages/Assets";
 import {Asset} from "../pages/Asset";
@@ -17,7 +17,7 @@ export const AppRoutes = () => {
                     <Routes>
                         <Route index element={<Overview />} />
                         <Route path="/trades" element={<Trades />} />
-                        <Route path="/staking" element={<Staking />} />
+                        <Route path="/ecosystem" element={<Ecosystem />} />
                         <Route path="/markets" element={<Markets />} />
                         <Route path="/markets/:slug" element={<Market />} />
                         <Route path="/assets" element={<Assets />} />

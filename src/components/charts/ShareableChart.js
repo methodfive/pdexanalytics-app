@@ -2,6 +2,7 @@ import React, {useRef, useState} from "react";
 import {LineChartCard} from "./LineChartCard";
 import html2canvas from "html2canvas";
 import {BarChartCard} from "./BarChartCard";
+import {PieChartCard} from "./PieChartCard";
 
 export const ShareableChart = ({type, fileNamePrefix, title, data,
                                    dataKey, latestRecord, filterToday, allowGrouping,
@@ -100,6 +101,18 @@ export const ShareableChart = ({type, fileNamePrefix, title, data,
                                                    onShareClick={null}
                                                    defaultInterval={interval}
                 />}
+                {type === "pie" && <PieChartCard title={title}
+                                                 data={data}
+                                                 isCurrency={isCurrency}
+                                                 latestRecord={latestRecord}
+                                                 allowGrouping={allowGrouping}
+                                                 labelFormatter={labelFormatter}
+                                                 loading={loading}
+                                                 suffix={suffix}
+                                                 isShared={true}
+                                                 onShareClick={null}
+                                                 defaultInterval={interval}
+                />}
             </div>
                 </>
         }
@@ -128,6 +141,16 @@ export const ShareableChart = ({type, fileNamePrefix, title, data,
                                           yAxisDomain={yAxisDomain}
                                           suffix={suffix}
                                           onShareClick={onShareClick}
+        />}
+        {type === "pie" && <PieChartCard title={title}
+                                         data={data}
+                                         isCurrency={isCurrency}
+                                         latestRecord={latestRecord}
+                                         allowGrouping={allowGrouping}
+                                         labelFormatter={labelFormatter}
+                                         loading={loading}
+                                         suffix={suffix}
+                                         onShareClick={onShareClick}
         />}
     </>;
 }

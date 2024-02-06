@@ -21,9 +21,9 @@ export const Navigation = ({open, toggleMenu,closeMenu}) => {
                 <li><NavigationLink to="/" state={{ scrollToTop: true }} title="Overview"
                                     className={({ isActive }) => isActive ? activeClassName : undefined}
                                     onClick={() => closeMenu()}>Overview</NavigationLink></li>
-                <li><NavigationLink to="/staking" state={{ scrollToTop: true }} title="Staking"
+                <li><NavigationLink to="/ecosystem" state={{ scrollToTop: true }} title="Ecosystem"
                                     className={({ isActive }) => isActive ? activeClassName : undefined}
-                                    onClick={() => closeMenu()}>Staking</NavigationLink></li>
+                                    onClick={() => closeMenu()}>Ecosystem</NavigationLink></li>
                 <li><NavigationLink to="/markets" state={{ scrollToTop: true }} title="Markets"
                                     className={({ isActive }) => isActive ? activeClassName : undefined}
                                     onClick={() => closeMenu()}>Markets</NavigationLink></li>
