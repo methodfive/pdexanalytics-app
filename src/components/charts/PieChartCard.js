@@ -137,6 +137,7 @@ export const PieChartCard = ({title, data, latestRecord,
                                             <text
                                                 x={newX }
                                                 y={y}
+                                                fontSize={getViewport() === "sm" ? 12 : 14}
                                                 fill="#cfd4da"
                                                 textAnchor={x > cx ? "start" : "end"}
                                                 dominantBaseline="central"
