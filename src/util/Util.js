@@ -119,7 +119,8 @@ export const formatChartDateLabel = (d, interval) => {
     {
         return moment.utc(date).format("MMM YYYY");
         //return moment(date, "YYYY-MM-DD HH:mm:ss").format("MMM YYYY")
-    }
+    } else if(interval === "PIE")
+        return d;
 
     return moment.utc(date).format("MMM D YYYY");
     //return moment(date, "YYYY-MM-DD HH:mm:ss").format("MMM D YYYY")

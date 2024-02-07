@@ -3,11 +3,12 @@ import {
     groupByDateFormat,
     formatChartDate,
     formatChartNumber,
-    aggregateDataByGroup, formatNumber, formatChartDateLabel
+    aggregateDataByGroup
 } from "../../util/Util";
 import {Bar, BarChart, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import moment from "moment";
-import {Percentage} from "../Percentage";
+import {ChartControls} from "./ChartControls";
+import {ChartTitle} from "./ChartTitle";
 
 export const BarChartCard = ({title, data, dataKey, latestRecord, filterToday,
                                  allowGrouping, loading = null, isCurrency,suffix = null,
@@ -57,48 +58,8 @@ export const BarChartCard = ({title, data, dataKey, latestRecord, filterToday,
     return (
         <>
             <div className="card card-chart">
-                <div className="card-header border-0 align-items-center d-flex">
-                    <p className="text-uppercase fw-medium text-muted text-truncate mb-0 flex-grow-1">{title}</p>
-                       {/* eslint-disable-next-line no-implied-eval */}
-                       {!isShared && data && <button type="button" className={"btn btn-soft-secondary btn-share material-shadow-none btn-sm d-none d-sm-block " + (allowGrouping ? "" : "no-group")} onClick={(e) => { onShareClick(e, interval); }}>
-                            Share
-                        </button>}
-                        {allowGrouping && <div>
-                            {/* eslint-disable-next-line no-implied-eval */}
-                            <button type="button" className={"btn btn-soft-secondary material-shadow-none btn-sm mr " + (interval === "D" ? "btn-soft-secondary-active":"")} onClick={() => { setInterval("D"); }}>
-                                D
-                            </button>
-                            {/* eslint-disable-next-line no-implied-eval */}
-                            <button type="button" className={"btn btn-soft-secondary material-shadow-none btn-sm mr " + (interval === "W" ? "btn-soft-secondary-active":"")} onClick={() => { setInterval("W"); }}>
-                                W
-                            </button>
-                            {/* eslint-disable-next-line no-implied-eval */}
-                            <button type="button" className={"btn btn-soft-secondary material-shadow-none btn-sm " + (interval === "M" ? "btn-soft-secondary-active":"")} onClick={() => { setInterval("M"); }}>
-                                M
-                            </button>
-                        </div>}
-                    }
-                </div>
-
-                <div className="card-header border-0 align-items-center d-flex pt-0">
-                    <div className="d-flex justify-content-between mt-0 mb-0">
-                        <div className="flex-grow-1 overflow-hidden">
-                            {data && <><h4 className="fs-22 fw-semibold ff-secondary mb-1">
-                                {isCurrency && <>$</>}<span className="counter-value" data-target="7585">
-                                {focusData && focusData.value && (labelFormatter ? labelFormatter(focusData.value) : formatNumber(focusData.value, 2))}
-                                {!focusData && latestRecord && latestRecord.d && (labelFormatter ? labelFormatter(latestRecord.value) : formatNumber(latestRecord.value, 2))} {suffix}</span>
-                                </h4>
-                                <p className="tooltip-date text-muted mb-0">
-                                    {focusData && focusData.d && formatChartDateLabel(focusData.d, interval)}
-                                    {!focusData && latestRecord && latestRecord.d && <>&nbsp;</>}</p>
-                            </>}
-                            {!data && <div className="loading-background" style={{width:"200px"}}><h4 className="mb-0">&nbsp;</h4></div>}
-                        </div>
-                        <div className="flex-shrink-0 chart-percentage">
-                            {data && !focusData && latestRecord && <Percentage percentage={latestRecord.percentage} />}
-                        </div>
-                    </div>
-                </div>
+                <ChartControls isShared={isShared} data={data} title={title} interval={interval} allowGrouping={allowGrouping} onShareClick={onShareClick}/>
+                <ChartTitle isCurrency={isCurrency} data={data} focusData={focusData} interval={interval} latestRecord={latestRecord} labelFormatter={labelFormatter} suffix={suffix} />
 
                 <div className="card-body p-0 pb-2">
                     <div className="w-100 chart">
