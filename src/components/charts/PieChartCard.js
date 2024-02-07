@@ -119,7 +119,6 @@ export const PieChartCard = ({title, data, latestRecord,
                                                 value,
                                                 index
                                             }) => {
-                                        console.log("handling label?");
                                         const RADIAN = Math.PI / 180;
                                         // eslint-disable-next-line
                                         const radius = 25 + innerRadius + (outerRadius - innerRadius);
@@ -152,7 +151,7 @@ export const PieChartCard = ({title, data, latestRecord,
                                                     textAnchor={x > cx ? "start" : "end"}
                                                     dominantBaseline="central"
                                                 >
-                                                    {formatNumber(value,3)}
+                                                    {formatNumber(value,3)} PDEX
                                                 </text>
                                             </g>
                                         );
