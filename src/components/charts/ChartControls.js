@@ -21,7 +21,7 @@ export const ChartControls = ({isShared, data, title, interval, allowGrouping, o
                 <button type="button" className={"btn btn-soft-secondary material-shadow-none btn-sm " + (interval === "M" ? "btn-soft-secondary-active":"")} onClick={() => { setInterval("M"); }}>
                     M
                 </button>
-            </div>}
+            </div>
             }
         </div>
     </>;
