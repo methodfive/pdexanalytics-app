@@ -58,7 +58,7 @@ export const BarChartCard = ({title, data, dataKey, latestRecord, filterToday,
     return (
         <>
             <div className="card card-chart">
-                <ChartControls isShared={isShared} data={data} title={title} interval={interval} allowGrouping={allowGrouping} onShareClick={onShareClick}/>
+                <ChartControls isShared={isShared} data={data} title={title} interval={interval} allowGrouping={allowGrouping} onShareClick={onShareClick} setInterval={setInterval}/>
                 <ChartTitle isCurrency={isCurrency} data={data} focusData={focusData} interval={interval} latestRecord={latestRecord} labelFormatter={labelFormatter} suffix={suffix} />
 
                 <div className="card-body p-0 pb-2">

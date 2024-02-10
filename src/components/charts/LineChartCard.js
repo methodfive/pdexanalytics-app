@@ -55,7 +55,7 @@ export const LineChartCard = ({title, data, dataKey, latestRecord, filterToday, 
     return (
         <>
             <div className="card card-chart">
-                <ChartControls isShared={isShared} data={data} title={title} interval={interval} allowGrouping={allowGrouping} onShareClick={onShareClick}/>
+                <ChartControls isShared={isShared} data={data} title={title} interval={interval} allowGrouping={allowGrouping} onShareClick={onShareClick} setInterval={setInterval}/>
                 <ChartTitle isCurrency={true} data={data} focusData={focusData} interval={interval} latestRecord={latestRecord} labelFormatter={labelFormatter} suffix={null} />
 
                 <div className="card-body p-0 pb-2">

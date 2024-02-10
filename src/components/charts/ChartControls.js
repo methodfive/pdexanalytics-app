@@ -1,6 +1,6 @@
 import React  from "react";
 
-export const ChartControls = ({isShared, data, title, interval, allowGrouping, onShareClick}) => {
+export const ChartControls = ({isShared, data, title, interval, allowGrouping, onShareClick, setInterval}) => {
     return <>
         <div className="card-header border-0 align-items-center d-flex">
             <p className="text-uppercase fw-medium text-muted text-truncate mb-0 flex-grow-1">{title}</p>

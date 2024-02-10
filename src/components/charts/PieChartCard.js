@@ -92,7 +92,7 @@ export const PieChartCard = ({title, data, latestRecord,
     return (
         <>
             <div className="card card-chart">
-                <ChartControls isShared={isShared} data={data} title={title} interval={interval} allowGrouping={allowGrouping} onShareClick={onShareClick}/>
+                <ChartControls isShared={isShared} data={data} title={title} interval={interval} allowGrouping={allowGrouping} onShareClick={onShareClick} setInterval={setInterval}/>
                 <ChartTitle isCurrency={false} data={data} focusData={focusData} interval={"PIE"} latestRecord={latestRecord} labelFormatter={labelFormatter} suffix={"PDEX"} />
 
                 <div className="card-body p-0 pb-2">
