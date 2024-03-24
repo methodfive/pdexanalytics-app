@@ -7,6 +7,9 @@ import IBTC from './icons/IBTC.svg';
 import PDEX from './icons/PDEX.svg';
 import PHA from './icons/PHA.svg';
 import USDT from './icons/USDT.svg';
+import USDC from './icons/USDC.svg';
+import PINK from './icons/PINK.svg';
+import DED from './icons/DED.svg';
 import UNKNOWN from './icons/UNKNOWN.svg';
 
 export const AssetIcon = ({symbol, className=null}) => {
@@ -29,6 +32,12 @@ export const AssetIcon = ({symbol, className=null}) => {
                 return <img src={PHA} alt={symbol}/>
             } else if (symbol === "USDT") {
                 return <img src={USDT} alt={symbol}/>
+            } else if (symbol === "PINK") {
+                return <img src={PINK} alt={symbol}/>
+            } else if (symbol === "DED") {
+                return <img src={DED} alt={symbol}/>
+            } else if (symbol === "USDC") {
+                return <img src={USDC} alt={symbol}/>
             } else {
                 return <img src={UNKNOWN} alt={symbol}/>;
             }
