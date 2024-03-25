@@ -124,7 +124,7 @@ export const Overview = () => {
                     <div className="col-lg-4 col-md-12">
                         <ShareableChart type="bar"
                                         fileNamePrefix="polkadex-ob-users"
-                                        title="New Users"
+                                        title="24H New Users"
                                         data={exchangeDaily && exchangeDaily.exchangeDaily}
                                         dataKey="nu"
                                         isCurrency={false}
