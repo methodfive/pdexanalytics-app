@@ -73,7 +73,7 @@ export const Overview = () => {
                                         dataKey="v"
                                         isCurrency={true}
                                         latestRecord={quickStats && quickStats.quickStats && {d: new Date().getTime(), value: quickStats.quickStats.v, percentage: percentIncrease(quickStats.quickStats.v, quickStats.quickStats.pv)}}
-                                        filterToday={true}
+                                        filterToday={false}
                                         allowGrouping={true}
                                         loading={quickLoading}
                         />
@@ -89,7 +89,7 @@ export const Overview = () => {
                                       dataKey="t"
                                       isCurrency={false}
                                       latestRecord={quickStats && quickStats.quickStats && {d: new Date().getTime(), value: quickStats.quickStats.t, percentage: percentIncrease(quickStats.quickStats.t, quickStats.quickStats.pt)}}
-                                      filterToday={true}
+                                      filterToday={false}
                                       allowGrouping={true}
                                       loading={quickLoading}
                                       yTickFormatter = {(n) => {
