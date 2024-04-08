@@ -13,14 +13,14 @@ export const Ecosystem = () => {
     const { data: quickStats, loading: quickLoading } = useQuery(gql`
         {
           quickStats {
-            st pst s ps str pstr h ph ti pti tb ptb tt ptt
+            st pst s ps str pstr h ph ti pti tb ptb tt ptt u pu nu pnu
           }
         }`);
 
     const { data: exchangeDaily } = useQuery(gql`
     {
       exchangeDaily {
-        d s sv t tv u v h str tb tt
+        d s sv t tv u v h str tb tt nu
       }
     }`);
 
@@ -210,6 +210,46 @@ export const Ecosystem = () => {
                                         }}
                                         labelFormatter = {(n) => {
                                             return formatNumber(n, 3);
+                                        }}
+                        />
+                    </div>
+
+                    <div className="col-lg-6 col-md-12">
+                        <ShareableChart type="bar"
+                                        fileNamePrefix="polkadex-ob-users"
+                                        title="Registered Users"
+                                        data={exchangeDaily && exchangeDaily.exchangeDaily}
+                                        dataKey="u"
+                                        isCurrency={false}
+                                        latestRecord={quickStats && quickStats.quickStats && {d: new Date().getTime(), value: quickStats.quickStats.u, percentage: percentIncrease(quickStats.quickStats.u, quickStats.quickStats.pu)}}
+                                        filterToday={false}
+                                        allowGrouping={false}
+                                        loading={quickLoading}
+                                        yTickFormatter = {(n) => {
+                                            return formatNumber(n, 0);
+                                        }}
+                                        labelFormatter = {(n) => {
+                                            return formatNumberRemoveZeros(n, 2);
+                                        }}
+                        />
+                    </div>
+
+                    <div className="col-lg-6 col-md-12">
+                        <ShareableChart type="bar"
+                                        fileNamePrefix="polkadex-ob-users"
+                                        title="24H New Users"
+                                        data={exchangeDaily && exchangeDaily.exchangeDaily}
+                                        dataKey="nu"
+                                        isCurrency={false}
+                                        latestRecord={quickStats && quickStats.quickStats && {d: new Date().getTime(), value: quickStats.quickStats.nu, percentage: percentIncrease(quickStats.quickStats.nu, quickStats.quickStats.pnu)}}
+                                        filterToday={false}
+                                        allowGrouping={false}
+                                        loading={quickLoading}
+                                        yTickFormatter = {(n) => {
+                                            return formatNumber(n, 0);
+                                        }}
+                                        labelFormatter = {(n) => {
+                                            return formatNumberRemoveZeros(n, 2);
                                         }}
                         />
                     </div>
