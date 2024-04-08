@@ -6,6 +6,7 @@ import {MarketTable} from "../components/tables/MarketTable";
 import {gql, useQuery} from "@apollo/client";
 import {Volume24H} from "../components/quickStats/Volume24H";
 import {Trades24H} from "../components/quickStats/Trades24H";
+import {Fees24H} from "../components/quickStats/Fees24H";
 
 export const Markets = () => {
     const location = useLocation();
@@ -14,7 +15,7 @@ export const Markets = () => {
     const { data: quickStats, loading: quickLoading } = useQuery(gql`
         {
           quickStats {
-            v pv t pt
+            v pv t pt f pf
           }
         }`);
 
@@ -40,8 +41,9 @@ export const Markets = () => {
                 </div>
 
                 <div className="row">
-                    <Volume24H loading={quickLoading} stats={quickStats} containerClass="col-xl-6 col-md-6" />
-                    <Trades24H loading={quickLoading} stats={quickStats} containerClass="col-xl-6 col-md-6" />
+                    <Volume24H loading={quickLoading} stats={quickStats} containerClass="col-md-4 col-sm-12" />
+                    <Trades24H loading={quickLoading} stats={quickStats} containerClass="col-md-4 col-sm-12" />
+                    <Fees24H loading={quickLoading} stats={quickStats} containerClass="col-md-4 col-sm-12" />
                 </div>
 
                 <MarketTable/>

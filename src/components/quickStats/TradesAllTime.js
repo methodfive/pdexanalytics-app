@@ -2,12 +2,12 @@ import React from "react";
 import {QuickStatCard} from "../QuickStatCard";
 import {formatNumberRemoveZeros} from "../../util/Util";
 
-export const RegisteredUsers = ({loading, stats = null, containerClass = null}) => {
+export const TradesAllTime = ({prefix = null,loading, stats = null, containerClass = null}) => {
     return (
-        <QuickStatCard title="ORDERBOOK USERS"
-                       value={stats && stats.quickStats && stats.quickStats.u}
-                       previous={stats && stats.quickStats && stats.quickStats.pu}
-                       icon="fa-solid fa-users-gear"
+        <QuickStatCard title={(prefix || "") + "ALL TIME TRADES"}
+                       value={stats && stats.exchangeAllTime && stats.exchangeAllTime.t}
+                       previous={stats && stats.exchangeAllTime && stats.exchangeAllTime.pt}
+                       icon="fa-solid fa-shuffle"
                        loading={loading}
                        containerClass={containerClass}
                        labelFormatter = {(n) => {

@@ -6,11 +6,13 @@ import {gql, useQuery} from "@apollo/client";
 import {formatNumber, formatNumberRemoveZeros, percentIncrease} from "../util/Util";
 import {MarketTable} from "../components/tables/MarketTable";
 import {AssetTable} from "../components/tables/AssetTable";
-import {StakingTVL} from "../components/quickStats/StakingTVL";
-import {TotalStaked} from "../components/quickStats/TotalStaked";
 import {TotalStakers} from "../components/quickStats/TotalStakers";
 import {TotalHolders} from "../components/quickStats/TotalHolders";
 import {ShareableChart} from "../components/charts/ShareableChart";
+import {RegisteredUsers} from "../components/quickStats/RegisteredUsers";
+import {VolumeAllTime} from "../components/quickStats/VolumeAllTime";
+import {TradesAllTime} from "../components/quickStats/TradesAllTime";
+import {FeesAllTime} from "../components/quickStats/FeesAllTime";
 
 export const Overview = () => {
     const location = useLocation();
@@ -19,14 +21,21 @@ export const Overview = () => {
     const { data: quickStats, loading: quickLoading } = useQuery(gql`
         {
           quickStats {
-            o po ps pst pt pu pv st t u v s h ph str pstr nu pnu
+            o po ps pst pt pu pv st t u v s h ph str pstr nu pnu f pf
           }
         }`);
 
     const { data: exchangeDaily } = useQuery(gql`
     {
       exchangeDaily {
-        d s sv t tv u v nu
+        d s sv t tv u v nu f
+      }
+    }`);
+
+    const { data: exchangeDailyAllTime } = useQuery(gql`
+    {
+      exchangeAllTime {
+        t f v
       }
     }`);
 
@@ -81,6 +90,12 @@ export const Overview = () => {
                 </div>
 
                 <div className="row">
+                    <RegisteredUsers loading={quickLoading} stats={quickStats} containerClass="col-md-4 col-sm-12" />
+                    <TotalHolders loading={quickLoading} stats={quickStats} containerClass="col-md-4 col-sm-12" />
+                    <TotalStakers loading={quickLoading} stats={quickStats} containerClass="col-md-4 col-sm-12" />
+                </div>
+
+                <div className="row">
                     <div className="col-lg-4 col-md-12">
                         <ShareableChart type="bar"
                                       fileNamePrefix="polkadex-24h-trades"
@@ -104,26 +119,6 @@ export const Overview = () => {
                     <div className="col-lg-4 col-md-12">
                         <ShareableChart type="bar"
                                         fileNamePrefix="polkadex-ob-users"
-                                        title="Registered Users"
-                                        data={exchangeDaily && exchangeDaily.exchangeDaily}
-                                        dataKey="u"
-                                        isCurrency={false}
-                                        latestRecord={quickStats && quickStats.quickStats && {d: new Date().getTime(), value: quickStats.quickStats.u, percentage: percentIncrease(quickStats.quickStats.u, quickStats.quickStats.pu)}}
-                                        filterToday={false}
-                                        allowGrouping={false}
-                                        loading={quickLoading}
-                                        yTickFormatter = {(n) => {
-                                            return formatNumber(n, 0);
-                                        }}
-                                        labelFormatter = {(n) => {
-                                            return formatNumberRemoveZeros(n, 2);
-                                        }}
-                        />
-                    </div>
-
-                    <div className="col-lg-4 col-md-12">
-                        <ShareableChart type="bar"
-                                        fileNamePrefix="polkadex-ob-users"
                                         title="24H New Users"
                                         data={exchangeDaily && exchangeDaily.exchangeDaily}
                                         dataKey="nu"
@@ -140,13 +135,25 @@ export const Overview = () => {
                                         }}
                         />
                     </div>
+
+                    <div className="col-lg-4 col-md-12">
+                        <ShareableChart type="line"
+                                        fileNamePrefix="polkadex-ob-tvl"
+                                        title="24H FEES"
+                                        data={exchangeDaily && exchangeDaily.exchangeDaily}
+                                        dataKey="f"
+                                        latestRecord={quickStats && quickStats.quickStats && {d: new Date().getTime(), value: quickStats.quickStats.f, percentage: percentIncrease(quickStats.quickStats.f, quickStats.quickStats.pf)}}
+                                        filterToday={false}
+                                        allowGrouping={false}
+                                        loading={quickLoading}
+                        />
+                    </div>
                 </div>
 
                 <div className="row">
-                    <StakingTVL loading={quickLoading} stats={quickStats} containerClass="col-xl-3 col-md-6" />
-                    <TotalStaked Staked loading={quickLoading} stats={quickStats} containerClass="col-xl-3 col-md-6" />
-                    <TotalHolders Staked loading={quickLoading} stats={quickStats} containerClass="col-xl-3 col-md-6" />
-                    <TotalStakers loading={quickLoading} stats={quickStats} containerClass="col-xl-3 col-md-6" />
+                    <VolumeAllTime loading={exchangeDailyAllTime} stats={exchangeDailyAllTime} containerClass="col-md-4 col-sm-12" />
+                    <TradesAllTime loading={exchangeDailyAllTime} stats={exchangeDailyAllTime} containerClass="col-md-4 col-sm-12" />
+                    <FeesAllTime loading={exchangeDailyAllTime} stats={exchangeDailyAllTime} containerClass="col-md-4 col-sm-12" />
                 </div>
 
                 <MarketTable/>
