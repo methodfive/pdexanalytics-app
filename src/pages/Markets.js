@@ -41,9 +41,8 @@ export const Markets = () => {
                 </div>
 
                 <div className="row">
-                    <Volume24H loading={quickLoading} stats={quickStats} containerClass="col-md-4 col-sm-12" />
-                    <Trades24H loading={quickLoading} stats={quickStats} containerClass="col-md-4 col-sm-12" />
-                    <Fees24H loading={quickLoading} stats={quickStats} containerClass="col-md-4 col-sm-12" />
+                    <Volume24H loading={quickLoading} stats={quickStats} containerClass="col-md-6 col-sm-12" />
+                    <Trades24H loading={quickLoading} stats={quickStats} containerClass="col-md-6 col-sm-12" />
                 </div>
 
                 <MarketTable/>

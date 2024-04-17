@@ -96,7 +96,7 @@ export const Overview = () => {
                 </div>
 
                 <div className="row">
-                    <div className="col-lg-4 col-md-12">
+                    <div className="col-lg-6 col-md-12">
                         <ShareableChart type="bar"
                                       fileNamePrefix="polkadex-24h-trades"
                                       title="24H Trades"
@@ -116,14 +116,14 @@ export const Overview = () => {
                         />
                     </div>
 
-                    <div className="col-lg-4 col-md-12">
+                    <div className="col-lg-6 col-md-12">
                         <ShareableChart type="bar"
                                         fileNamePrefix="polkadex-ob-users"
                                         title="24H New Users"
                                         data={exchangeDaily && exchangeDaily.exchangeDaily}
                                         dataKey="nu"
                                         isCurrency={false}
-                                        latestRecord={quickStats && quickStats.quickStats && {d: new Date().getTime(), value: quickStats.quickStats.nu, percentage: percentIncrease(quickStats.quickStats.nu, quickStats.quickStats.pnu)}}
+                                        latestRecord={quickStats && quickStats.quickStats && {d: new Date().getTime(), value: quickStats.quickStats.nu, percentage: null}}
                                         filterToday={false}
                                         allowGrouping={false}
                                         loading={quickLoading}
@@ -135,26 +135,12 @@ export const Overview = () => {
                                         }}
                         />
                     </div>
-
-                    <div className="col-lg-4 col-md-12">
-                        <ShareableChart type="line"
-                                        fileNamePrefix="polkadex-ob-tvl"
-                                        title="24H FEES"
-                                        data={exchangeDaily && exchangeDaily.exchangeDaily}
-                                        dataKey="f"
-                                        latestRecord={quickStats && quickStats.quickStats && {d: new Date().getTime(), value: quickStats.quickStats.f, percentage: percentIncrease(quickStats.quickStats.f, quickStats.quickStats.pf)}}
-                                        filterToday={false}
-                                        allowGrouping={false}
-                                        loading={quickLoading}
-                        />
-                    </div>
                 </div>
 
                 <div className="row">
-                    <VolumeAllTime loading={exchangeDailyAllTime} stats={exchangeDailyAllTime} containerClass="col-md-4 col-sm-12" />
-                    <TradesAllTime loading={exchangeDailyAllTime} stats={exchangeDailyAllTime} containerClass="col-md-4 col-sm-12" />
-                    <FeesAllTime loading={exchangeDailyAllTime} stats={exchangeDailyAllTime} containerClass="col-md-4 col-sm-12" />
-                </div>
+                    <VolumeAllTime loading={exchangeDailyAllTime} stats={exchangeDailyAllTime} containerClass="col-md-6 col-sm-12" />
+                    <TradesAllTime loading={exchangeDailyAllTime} stats={exchangeDailyAllTime} containerClass="col-md-6 col-sm-12" />
+                    </div>
 
                 <MarketTable/>
 
