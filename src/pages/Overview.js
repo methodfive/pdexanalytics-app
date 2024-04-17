@@ -12,7 +12,6 @@ import {ShareableChart} from "../components/charts/ShareableChart";
 import {RegisteredUsers} from "../components/quickStats/RegisteredUsers";
 import {VolumeAllTime} from "../components/quickStats/VolumeAllTime";
 import {TradesAllTime} from "../components/quickStats/TradesAllTime";
-import {FeesAllTime} from "../components/quickStats/FeesAllTime";
 
 export const Overview = () => {
     const location = useLocation();

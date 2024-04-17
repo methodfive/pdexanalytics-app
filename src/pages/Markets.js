@@ -6,7 +6,6 @@ import {MarketTable} from "../components/tables/MarketTable";
 import {gql, useQuery} from "@apollo/client";
 import {Volume24H} from "../components/quickStats/Volume24H";
 import {Trades24H} from "../components/quickStats/Trades24H";
-import {Fees24H} from "../components/quickStats/Fees24H";
 
 export const Markets = () => {
     const location = useLocation();
