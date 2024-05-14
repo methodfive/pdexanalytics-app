@@ -8,6 +8,8 @@ import PDEX from './icons/PDEX.svg';
 import PHA from './icons/PHA.svg';
 import USDT from './icons/USDT.svg';
 import USDC from './icons/USDC.svg';
+import VDOT from './icons/VDOT.svg';
+import BNC from './icons/BNC.svg';
 import PINK from './icons/PINK.svg';
 import DED from './icons/DED.svg';
 import UNKNOWN from './icons/UNKNOWN.svg';
@@ -38,6 +40,10 @@ export const AssetIcon = ({symbol, className=null}) => {
                 return <img src={DED} alt={symbol}/>
             } else if (symbol === "USDC") {
                 return <img src={USDC} alt={symbol}/>
+            } else if (symbol === "vDOT") {
+                return <img src={VDOT} alt={symbol}/>
+            } else if (symbol === "BNC") {
+                return <img src={BNC} alt={symbol}/>
             } else {
                 return <img src={UNKNOWN} alt={symbol}/>;
             }
