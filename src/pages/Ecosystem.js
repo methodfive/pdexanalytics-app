@@ -241,7 +241,7 @@ export const Ecosystem = () => {
                                         data={exchangeDaily && exchangeDaily.exchangeDaily}
                                         dataKey="nu"
                                         isCurrency={false}
-                                        latestRecord={quickStats && quickStats.quickStats && {d: new Date().getTime(), value: quickStats.quickStats.nu, percentage: percentIncrease(quickStats.quickStats.nu, quickStats.quickStats.pnu)}}
+                                        latestRecord={quickStats && quickStats.quickStats && {d: new Date().getTime(), value: quickStats.quickStats.nu, percentage: null}}
                                         filterToday={false}
                                         allowGrouping={false}
                                         loading={quickLoading}
