@@ -12,6 +12,7 @@ import VDOT from './icons/VDOT.svg';
 import BNC from './icons/BNC.svg';
 import PINK from './icons/PINK.svg';
 import DED from './icons/DED.svg';
+import UNQ from './icons/UNQ.svg';
 import UNKNOWN from './icons/UNKNOWN.svg';
 
 export const AssetIcon = ({symbol, className=null}) => {
@@ -42,6 +43,8 @@ export const AssetIcon = ({symbol, className=null}) => {
                 return <img src={USDC} alt={symbol}/>
             } else if (symbol === "vDOT") {
                 return <img src={VDOT} alt={symbol}/>
+            } else if (symbol === "UNQ") {
+                return <img src={UNQ} alt={symbol}/>
             } else if (symbol === "BNC") {
                 return <img src={BNC} alt={symbol}/>
             } else {
