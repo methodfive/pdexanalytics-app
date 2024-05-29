@@ -19,13 +19,6 @@ export const Assets = () => {
           }
         }`);
 
-    const { data: exchangeDailyAllTime } = useQuery(gql`
-    {
-      exchangeAllTime {
-        t f v
-      }
-    }`);
-
     return (
         <>
             <Helmet>
