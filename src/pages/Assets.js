@@ -7,7 +7,6 @@ import {gql, useQuery} from "@apollo/client";
 import {TVL} from "../components/quickStats/TVL";
 import {StakingTVL} from "../components/quickStats/StakingTVL";
 import {TreasuryTVL} from "../components/quickStats/TreasuryTVL";
-import {FeesAllTime} from "../components/quickStats/FeesAllTime";
 
 export const Assets = () => {
     const location = useLocation();
