@@ -138,9 +138,8 @@ export const Overview = () => {
                 </div>
 
                 <div className="row">
-                    <VolumeAllTime loading={exchangeDailyAllTime} stats={exchangeDailyAllTime} containerClass="col-md-4 col-sm-12" />
-                    <TradesAllTime loading={exchangeDailyAllTime} stats={exchangeDailyAllTime} containerClass="col-md-4 col-sm-12" />
-                    <FeesAllTime loading={exchangeDailyAllTime} stats={exchangeDailyAllTime} containerClass="col-md-4 col-sm-12" />
+                    <VolumeAllTime loading={exchangeDailyAllTime} stats={exchangeDailyAllTime} containerClass="col-md-6 col-sm-12" />
+                    <TradesAllTime loading={exchangeDailyAllTime} stats={exchangeDailyAllTime} containerClass="col-md-6 col-sm-12" />
                 </div>
 
                 <MarketTable/>

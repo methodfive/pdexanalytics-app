@@ -49,10 +49,9 @@ export const Assets = () => {
                 </div>
 
                 <div className="row">
-                    <TVL loading={quickLoading} stats={quickStats} containerClass="col-xl-3 col-md-6" />
-                    <StakingTVL loading={quickLoading} stats={quickStats} containerClass="col-xl-3 col-md-6" />
-                    <TreasuryTVL loading={quickLoading} stats={quickStats} containerClass="col-xl-3  col-md-6" />
-                    <FeesAllTime loading={exchangeDailyAllTime} stats={exchangeDailyAllTime} containerClass="col-xl-3 col-md-6" />
+                    <TVL loading={quickLoading} stats={quickStats} containerClass="col-xl-4 col-md-6" />
+                    <StakingTVL loading={quickLoading} stats={quickStats} containerClass="col-xl-4 col-md-6" />
+                    <TreasuryTVL loading={quickLoading} stats={quickStats} containerClass="col-xl-4  col-md-6" />
                 </div>
 
                 <AssetTable/>
