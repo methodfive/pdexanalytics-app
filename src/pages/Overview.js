@@ -12,6 +12,7 @@ import {ShareableChart} from "../components/charts/ShareableChart";
 import {RegisteredUsers} from "../components/quickStats/RegisteredUsers";
 import {VolumeAllTime} from "../components/quickStats/VolumeAllTime";
 import {TradesAllTime} from "../components/quickStats/TradesAllTime";
+import {FeesAllTime} from "../components/quickStats/FeesAllTime";
 
 export const Overview = () => {
     const location = useLocation();
@@ -137,8 +138,9 @@ export const Overview = () => {
                 </div>
 
                 <div className="row">
-                    <VolumeAllTime loading={exchangeDailyAllTime} stats={exchangeDailyAllTime} containerClass="col-md-6 col-sm-12" />
-                    <TradesAllTime loading={exchangeDailyAllTime} stats={exchangeDailyAllTime} containerClass="col-md-6 col-sm-12" />
+                    <VolumeAllTime loading={exchangeDailyAllTime} stats={exchangeDailyAllTime} containerClass="col-md-4 col-sm-12" />
+                    <TradesAllTime loading={exchangeDailyAllTime} stats={exchangeDailyAllTime} containerClass="col-md-4 col-sm-12" />
+                    <FeesAllTime loading={exchangeDailyAllTime} stats={exchangeDailyAllTime} containerClass="col-md-4 col-sm-12" />
                 </div>
 
                 <MarketTable/>
